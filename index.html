@@ -1,459 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wordle</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>AutoAtlas</title>
 
-  <style>
-    .credit {
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0e0f12;
+  color: white;
+}
+
+/* ================= CAR PAGE ================= */
+#carPage {
+  padding: 40px;
+}
+
+.header {
+  text-align: center;
+  max-width: 900px;
+  margin: auto;
+}
+
+.header h1 {
+  font-size: 60px;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+}
+
+.header p {
+  opacity: 0.7;
+  font-size: 18px;
+}
+
+/* HERO */
+.hero {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 20px;
+  background: #15161a;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid #2a2b31;
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-text {
+  padding: 30px;
+}
+
+.hero-text h2 {
+  font-size: 32px;
+}
+
+.tag {
+  display: inline-block;
+  margin-top: 10px;
+  background: #2b2c33;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* GRID */
+.grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #15161a;
+  border: 1px solid #2a2b31;
+  border-radius: 18px;
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  border-color: #538d4e;
+}
+
+.card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 15px;
+}
+
+/* ================= GAMES PAGE (UNCHANGED) ================= */
+#gamesPage {
+  display: none;
+  padding: 40px;
+  background: #0b0b0c;
+  min-height: 100vh;
+}
+
+.games-title {
+  text-align: center;
+  font-size: 55px;
+  margin-bottom: 40px;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.game-card {
+  background: #1a1a1b;
+  border: 1px solid #333;
+  border-radius: 20px;
+  padding: 25px;
+  transition: 0.2s;
+}
+
+.game-card:hover {
+  transform: scale(1.04);
+}
+
+.play-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 14px 25px;
+  background: #538d4e;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.credit {
   position: fixed;
   bottom: 12px;
   right: 15px;
   color: #777;
   font-size: 14px;
-  z-index: 9999;
-  user-select: none;
 }
-    body {
-      margin: 0;
-      background: #121213;
-      color: white;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-    }
-
-    h1 {
-      margin-top: 30px;
-      font-size: 50px;
-      letter-spacing: 4px;
-      border-bottom: 1px solid #3a3a3c;
-      width: 100%;
-      text-align: center;
-      padding-bottom: 20px;
-    }
-
-    .board {
-      margin-top: 40px;
-      display: grid;
-      grid-template-rows: repeat(6, 1fr);
-      gap: 8px;
-    }
-
-    .row {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-    }
-
-    .tile {
-      width: 62px;
-      height: 62px;
-      border: 2px solid #3a3a3c;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 32px;
-      font-weight: bold;
-      text-transform: uppercase;
-      background: #121213;
-    }
-
-    .green {
-      background: #538d4e;
-      border-color: #538d4e;
-    }
-
-    .yellow {
-      background: #b59f3b;
-      border-color: #b59f3b;
-    }
-
-    .gray {
-      background: #3a3a3c;
-      border-color: #3a3a3c;
-    }
-
-    .keyboard {
-      margin-top: 40px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .key-row {
-      display: flex;
-      gap: 6px;
-    }
-
-    .key {
-      background: #818384;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      height: 58px;
-      min-width: 43px;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    .wide {
-      min-width: 80px;
-    }
-
-    /* SECRET GAMES PAGE */
-
-    #gamesPage {
-      display: none;
-      width: 100%;
-      min-height: 100vh;
-      background: #0b0b0c;
-      padding: 40px;
-      box-sizing: border-box;
-    }
-
-    .games-title {
-      text-align: center;
-      font-size: 55px;
-      margin-bottom: 40px;
-    }
-
-    .games-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .game-card {
-      background: #1a1a1b;
-      border: 1px solid #333;
-      border-radius: 20px;
-      padding: 25px;
-      transition: 0.2s;
-    }
-
-    .game-card:hover {
-      transform: scale(1.04);
-    }
-
-    .game-card h2 {
-      margin-top: 0;
-      font-size: 30px;
-    }
-
-    .play-btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 14px 25px;
-      background: #538d4e;
-      color: white;
-      text-decoration: none;
-      border-radius: 10px;
-      font-weight: bold;
-    }
-
-  </style>
+</style>
 </head>
+
 <body>
 
-  <!-- NORMAL WORDLE PAGE -->
+<!-- ================= CAR PAGE ================= -->
+<div id="carPage">
 
-  <div id="wordlePage">
+  <div class="header">
+    <h1>AUTOATLAS</h1>
+    <p>Modern car magazine — explore icons, performance legends & engineering masterpieces.</p>
+  </div>
 
-    <h1>WORDLE</h1>
+  <!-- HERO -->
+  <div class="hero">
+    <img src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a">
+    <div class="hero-text">
+      <h2>Nissan GT-R R35</h2>
+      <p>
+        One of the most iconic performance cars ever made.
+        Known for AWD launch control and extreme tuning potential.
+      </p>
+      <span class="tag">JDM LEGEND</span>
+      <span class="tag">SUPERCAR KILLER</span>
+    </div>
+  </div>
 
-    <div class="board" id="board"></div>
+  <!-- GRID -->
+  <div class="grid">
 
-    <div class="keyboard">
-
-      <div class="key-row">
-        <button class="key">Q</button>
-        <button class="key">W</button>
-        <button class="key">E</button>
-        <button class="key">R</button>
-        <button class="key">T</button>
-        <button class="key">Y</button>
-        <button class="key">U</button>
-        <button class="key">I</button>
-        <button class="key">O</button>
-        <button class="key">P</button>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70">
+      <div class="card-content">
+        <h3>Toyota Supra MK4</h3>
+        <p>Legendary 2JZ engine and massive tuning culture.</p>
       </div>
+    </div>
 
-      <div class="key-row">
-        <button class="key">A</button>
-        <button class="key">S</button>
-        <button class="key">D</button>
-        <button class="key">F</button>
-        <button class="key">G</button>
-        <button class="key">H</button>
-        <button class="key">J</button>
-        <button class="key">K</button>
-        <button class="key">L</button>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d">
+      <div class="card-content">
+        <h3>BMW M3</h3>
+        <p>Perfect mix of luxury, speed, and track capability.</p>
       </div>
+    </div>
 
-      <div class="key-row">
-        <button class="key wide">ENTER</button>
-        <button class="key">Z</button>
-        <button class="key">X</button>
-        <button class="key">C</button>
-        <button class="key">V</button>
-        <button class="key">B</button>
-        <button class="key">N</button>
-        <button class="key">M</button>
-        <button class="key wide">⌫</button>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6">
+      <div class="card-content">
+        <h3>Lamborghini Huracán</h3>
+        <p>High-revving Italian V10 supercar.</p>
       </div>
+    </div>
 
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a">
+      <div class="card-content">
+        <h3>McLaren 720S</h3>
+        <p>Carbon-fibre hypercar with insane aerodynamics.</p>
+      </div>
     </div>
 
   </div>
 
-  <div id="gamesPage">
+</div>
 
-    <div class="games-title">
-      <p>Always trying to add more..</p>
+<!-- ================= GAMES PAGE (UNCHANGED FULL LIST) ================= -->
+<div id="gamesPage">
+
+  <div class="games-title">
+    <p>Always trying to add more..</p>
+  </div>
+
+  <div class="games-grid">
+
+    <div class="game-card">
+      <h2>2048</h2>
+      <a class="play-btn" href="2048.html" target="_blank">PLAY</a>
     </div>
 
-    <div class="games-grid">
+    <div class="game-card">
+      <h2>Fake Minecraft</h2>
+      <a class="play-btn" href="play.htm" target="_blank">PLAY</a>
+    </div>
 
-      <div class="game-card">
-        <h2>2048</h2>
-        <p>Play 2048.</p>
-        <a class="play-btn" href="2048.html" target="_blank">PLAY</a>
-      </div>
+    <div class="game-card">
+      <h2>Tetris</h2>
+      <a class="play-btn" href="tetris.html" target="_blank">PLAY</a>
+    </div>
 
-      <div class="game-card">
-        <h2>Fake Minecraft</h2>
-        <p>As best as u can get with minecraft</p>
-        <a class="play-btn" href="play.htm" target="_blank">PLAY</a>
-      </div>
+    <div class="game-card">
+      <h2>Infinite Mario</h2>
+      <a class="play-btn" href="mario.html" target="_blank">PLAY</a>
+    </div>
 
-      <div class="game-card">
-        <h2>Tetris</h2>
-        <p>Classic Tetris online.</p>
-        <a class="play-btn" href="tetris.html" target="_blank">PLAY</a>
-      </div>
+    <div class="game-card">
+      <h2>Snake io</h2>
+      <a class="play-btn" href="snake.html" target="_blank">PLAY</a>
+    </div>
 
-      <div class="game-card">
-        <h2>Infinite Mario</h2>
-        <p>Pretty tuff recreation of mario</p>
-        <a class="play-btn" href="mario.html" target="_blank">PLAY</a>
-      </div>
+    <div class="game-card">
+      <h2>FNAF 1</h2>
+      <a class="play-btn" href="fnaf1.html" target="_blank">PLAY</a>
+    </div>
 
-      <div class="game-card">
-        <h2>Snake io</h2>
-        <p>Tuff snake</p>
-        <a class="play-btn" href="snake.html" target="_blank">PLAY</a>
-      </div>
+    <div class="game-card">
+      <h2>Flappy Bird</h2>
+      <a class="play-btn" href="flappybird.html" target="_blank">PLAY</a>
+    </div>
 
-      <div class="game-card">
-        <h2>FNAF 1</h2>
-        <p>Fnaf</p>
-        <a class="play-btn" href="fnaf1.html" target="_blank">PLAY</a>
-      </div>
+    <div class="game-card">
+      <h2>Tap Tap Tap</h2>
+      <a class="play-btn" href="tap.html" target="_blank">PLAY</a>
+    </div>
 
-       <div class="game-card">
-        <h2>Flappy Bird</h2>
-        <p>Its flappy bird</p>
-        <a class="play-btn" href="flappybird.html" target="_blank">PLAY</a>
-      </div>
-
-       <div class="game-card">
-        <h2>Tap Tap Tap</h2>
-        <p>Tap the circles, its actually good tho</p>
-        <a class="play-btn" href="tap.html" target="_blank">PLAY</a>
-      </div>
-
-       <div class="game-card">
-        <h2>Crossy Road</h2>
-        <p>Not the original</p>
-        <a class="play-btn" href="crossyroad.html" target="_blank">PLAY</a>
-      </div>
-
-
+    <div class="game-card">
+      <h2>Crossy Road</h2>
+      <a class="play-btn" href="crossyroad.html" target="_blank">PLAY</a>
     </div>
 
   </div>
+</div>
 
-  <script>
-
-    const wordList = [
-      "APPLE",
-      "GRAPE",
-      "STONE",
-      "PLANT",
-      "TRAIN",
-      "SMILE"
-    ];
-
-    let realWord = "";
-    let currentRow = 0;
-    let currentTile = 0;
-    let guesses = [];
-    let gameOver = false;
-
-    const board = document.getElementById("board");
-
-    function createBoard() {
-      board.innerHTML = "";
-
-      for(let r = 0; r < 6; r++) {
-        const row = document.createElement("div");
-        row.className = "row";
-
-        for(let c = 0; c < 5; c++) {
-          const tile = document.createElement("div");
-          tile.className = "tile";
-          row.appendChild(tile);
-        }
-
-        board.appendChild(row);
-      }
-    }
-
-    function resetGame() {
-      realWord = wordList[Math.floor(Math.random() * wordList.length)];
-
-      currentRow = 0;
-      currentTile = 0;
-      guesses = Array(6).fill("");
-      gameOver = false;
-
-      createBoard();
-    }
-
-    function updateBoard() {
-      const rows = document.querySelectorAll(".row");
-
-      for(let r = 0; r < 6; r++) {
-        const tiles = rows[r].children;
-
-        for(let c = 0; c < 5; c++) {
-          tiles[c].textContent = guesses[r][c] || "";
-        }
-      }
-    }
-
-    function addLetter(letter) {
-      if(gameOver) return;
-
-      if(currentTile < 5) {
-        guesses[currentRow] += letter;
-        currentTile++;
-        updateBoard();
-      }
-    }
-
-    function deleteLetter() {
-      if(gameOver) return;
-
-      if(currentTile > 0) {
-        guesses[currentRow] = guesses[currentRow].slice(0, -1);
-        currentTile--;
-        updateBoard();
-      }
-    }
-
-    function openGamesPage() {
-      document.getElementById("wordlePage").style.display = "none";
-      document.getElementById("gamesPage").style.display = "block";
-    }
-
-    function submitGuess() {
-      if(gameOver) return;
-
-      const guess = guesses[currentRow];
-
-      if(guess.length !== 5) return;
-
-      // SECRET WORD
-      if(guess.toLowerCase() === "games") {
-        openGamesPage();
-        return;
-      }
-
-      const rows = document.querySelectorAll(".row");
-      const tiles = rows[currentRow].children;
-
-      for(let i = 0; i < 5; i++) {
-        const letter = guess[i];
-
-        if(letter === realWord[i]) {
-          tiles[i].classList.add("green");
-        }
-        else if(realWord.includes(letter)) {
-          tiles[i].classList.add("yellow");
-        }
-        else {
-          tiles[i].classList.add("gray");
-        }
-      }
-
-      if(guess === realWord) {
-        gameOver = true;
-
-        setTimeout(() => {
-          alert("You won! New game starting.");
-          resetGame();
-        }, 1200);
-
-        return;
-      }
-
-      if(currentRow === 5) {
-        gameOver = true;
-
-        setTimeout(() => {
-          alert("Game Over! Word was " + realWord);
-          resetGame();
-        }, 1200);
-
-        return;
-      }
-
-      currentRow++;
-      currentTile = 0;
-    }
-
-    document.querySelectorAll(".key").forEach(key => {
-      key.addEventListener("click", () => {
-        const value = key.textContent;
-
-        if(value === "ENTER") {
-          submitGuess();
-        }
-        else if(value === "⌫") {
-          deleteLetter();
-        }
-        else {
-          addLetter(value);
-        }
-      });
-    });
-
-    document.addEventListener("keydown", (e) => {
-      const key = e.key.toUpperCase();
-
-      if(key === "ENTER") {
-        submitGuess();
-      }
-      else if(key === "BACKSPACE") {
-        deleteLetter();
-      }
-      else if(/^[A-Z]$/.test(key)) {
-        addLetter(key);
-      }
-    });
-
-    resetGame();
-
-  </script>
 <div class="credit">made by mareczek</div>
+
+<script>
+function openGamesPage() {
+  document.getElementById("carPage").style.display = "none";
+  document.getElementById("gamesPage").style.display = "block";
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.shiftKey && e.key.toLowerCase() === "g") {
+    openGamesPage();
+  }
+});
+</script>
+
 </body>
 </html>
