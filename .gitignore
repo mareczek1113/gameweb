@@ -1,0 +1,12 @@
+﻿Library/
+Temp/
+Obj/
+Logs/
+Build/
+UserSettings/
+*.csproj
+*.sln
+*.unity
+*.data.gz
+*.unityweb
+*.gz

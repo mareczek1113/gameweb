@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>GCSE Revision</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6fb;
+  color: #111;
+}
+
+/* ================= GCSE PAGE ================= */
+#carPage {
+  padding: 30px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 55px;
+  margin: 0;
+}
+
+.header p {
+  opacity: 0.6;
+}
+
+.searchBox {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 30px;
+}
+
+.searchBox input {
+  width: 60%;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  outline: none;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 20px;
+}
+
+.sidebar {
+  background: white;
+  border-radius: 15px;
+  padding: 15px;
+  border: 1px solid #e6e6e6;
+}
+
+.subject {
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 10px;
+  background: #f1f1f1;
+  cursor: pointer;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 15px;
+}
+
+.card {
+  background: white;
+  border-radius: 15px;
+  border: 1px solid #e6e6e6;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 12px;
+}
+
+/* POPUP */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-box {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  width: 350px;
+  text-align: center;
+}
+
+/* ================= STEAM STYLE GAMES PAGE ================= */
+#gamesPage {
+  display: none;
+  height: 100vh;
+  background: #0e1016;
+  color: white;
+}
+
+/* TOP BAR (STEAM STYLE) */
+.steam-top {
+  height: 55px;
+  background: #171a21;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #c7d5e0;
+}
+
+/* LAYOUT */
+.steam-container {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  height: calc(100vh - 55px);
+}
+
+/* SIDEBAR */
+.steam-sidebar {
+  background: #11131a;
+  padding: 20px;
+  border-right: 1px solid #222;
+}
+
+.steam-sidebar h3 {
+  color: #66c0f4;
+  margin-top: 0;
+}
+
+.steam-item {
+  padding: 10px;
+  margin: 6px 0;
+  background: #1a1d25;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.steam-item:hover {
+  background: #222838;
+}
+
+/* LIBRARY */
+.steam-library {
+  padding: 25px;
+  overflow-y: auto;
+}
+
+.steam-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* GAME CARD */
+.steam-card {
+  background: #1a1d25;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #2a2f3a;
+  transition: 0.2s;
+}
+
+.steam-card:hover {
+  transform: scale(1.03);
+  border-color: #66c0f4;
+  box-shadow: 0 0 15px rgba(102,192,244,0.2);
+}
+
+.steam-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+
+.steam-card h4 {
+  margin: 10px;
+}
+
+.play-btn {
+  display: block;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+  background: #66c0f4;
+  color: black;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+/* ONLY TEXT SHOWN */
+.credit {
+  position: fixed;
+  bottom: 10px;
+  right: 15px;
+  color: #999;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= GCSE PAGE ================= -->
+<div id="carPage">
+
+  <div class="header">
+    <h1>GCSE REVISION</h1>
+  </div>
+
+  <div class="searchBox">
+    <input id="search" placeholder="Search subjects...">
+  </div>
+
+  <div class="layout">
+
+    <div class="sidebar">
+      <h3>Subjects</h3>
+      <div class="subject" onclick="openPopup()">Maths</div>
+      <div class="subject" onclick="openPopup()">English</div>
+      <div class="subject" onclick="openPopup()">Science</div>
+      <div class="subject" onclick="openPopup()">History</div>
+    </div>
+
+    <div class="main">
+
+      <div class="card" onclick="openPopup()">
+        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb">
+        <div class="card-content">
+          <h3>Maths</h3>
+        </div>
+      </div>
+
+      <div class="card" onclick="openPopup()">
+        <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f">
+        <div class="card-content">
+          <h3>English</h3>
+        </div>
+      </div>
+
+      <div class="card" onclick="openPopup()">
+        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d">
+        <div class="card-content">
+          <h3>Science</h3>
+        </div>
+      </div>
+
+      <div class="card" onclick="openPopup()">
+        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644">
+        <div class="card-content">
+          <h3>History</h3>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+  <div class="popup-box">
+    <h2>Server Error</h2>
+    <p>The server is currently down</p>
+    <button onclick="closePopup()">Close</button>
+  </div>
+</div>
+
+<!-- ================= STEAM GAME PAGE ================= -->
+<div id="gamesPage">
+
+  <div class="steam-top">Library</div>
+
+  <div class="steam-container">
+
+    <div class="steam-sidebar">
+      <h3>GAMES</h3>
+      <div class="steam-item">All Games</div>
+      <div class="steam-item">Recent</div>
+      <div class="steam-item">Favorites</div>
+
+      <hr style="border-color:#222; margin:15px 0;">
+
+    </div>
+
+    <div class="steam-library">
+
+  <div class="steam-header">
+    <h2>Secret Page</h2>
+    <p>New update - changed to revision website, changed layout added more games.</p>
+  </div>
+
+  <div style="margin:20px 0;">
+  <input
+    type="text"
+    id="gameSearch"
+    placeholder="Search games..."
+    style="
+      width:100%;
+      padding:12px;
+      background:#1a1d25;
+      border:1px solid #2a2f3a;
+      color:white;
+      border-radius:8px;
+      font-size:16px;
+      box-sizing:border-box;
+    "
+  >
+</div>
+
+  <!-- FULLSCREEN GAME VIEWER -->
+  <div id="gameViewer" style="
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:#0e1016;
+    z-index:9999;
+  ">
+
+    <div onclick="closeGame()" style="
+      position:absolute;
+      top:10px;
+      right:15px;
+      background:red;
+      color:white;
+      padding:10px 14px;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:bold;
+      z-index:10000;
+    ">
+      ✕ Close
+    </div>
+
+    <iframe id="gameFrame"
+      style="width:100%; height:100%; border:none;">
+    </iframe>
+  </div>
+
+  <!-- YOUR ORIGINAL GAME GRID (UNCHANGED GAMES) -->
+  <div class="steam-grid">
+
+    <div class="steam-card">
+      <h4>2048</h4>
+      <div class="play-btn" onclick="openGame('2048.html')">Play</div>
+    </div>
+
+    <div class="steam-card">
+      <h4>Tetris</h4>
+      <div class="play-btn" onclick="openGame('tetris.html')">Play</div>
+    </div>
+
+    <div class="steam-card">
+      <h4>Mario</h4>
+      <div class="play-btn" onclick="openGame('mario.html')">Play</div>
+    </div>
+
+    <div class="steam-card">
+      <h4>Snake IO</h4>
+      <div class="play-btn" onclick="openGame('snake.html')">Play</div>
+    </div>
+
+    <div class="steam-card">
+      <h4>Flappy Bird</h4>
+      <div class="play-btn" onclick="openGame('flappybird.html')">Play</div>
+    </div>
+
+    <div class="steam-card">
+      <h4>Tap Tap Tap</h4>
+      <div class="play-btn" onclick="openGame('tap.html')">Play</div>
+    </div>
+
+    <div class="steam-card">
+      <h4>Crossy Road</h4>
+      <div class="play-btn" onclick="openGame('crossyroad.html')">Play</div>
+    </div>
+
+    <div class="steam-card">
+      <h4>Granny</h4>
+      <div class="play-btn" onclick="openGame('granny.html')">Play</div>
+    </div>
+
+    <div class="steam-card">
+      <h4>Granny 2</h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/granny2.html')">Play</div>
+    </div>
+
+    <div class="steam-card">
+      <h4>Bob The Robber 2</h4>
+      <div class="play-btn" onclick="openGame('games/bob-the-robber-2/index.html')">Play</div>
+    </div>
+
+    <div class="steam-card">
+      <h4>Drive Mad</h4>
+      <div class="play-btn" onclick="openGame('games/drive-mad/index.html')">Play</div>
+    </div>
+
+    <div class="steam-card">
+      <h4>Slope</h4>
+      <div class="play-btn" onclick="openGame('games/slope/index.html')">Play</div>
+    </div>
+
+    <div class="steam-card">
+      <h4>Moto X3M</h4>
+      <div class="play-btn" onclick="openGame('games/moto-x3m/index.html')">Play</div>
+    </div>
+
+    <div class="steam-card">
+      <h4>Geometry Dash</h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/geometrydashlite.html')">Play</div>
+    </div>
+
+    <div class="steam-card">
+      <h4>Csgo case clicker</h4>
+      <div class="play-btn" onclick="openGame('unblockedgames-main/play/csgo-clicker/index.html')">Play</div>
+    </div>
+
+    <div class="steam-card"> 
+      <h4>Krunker.io</h4>
+      <div class="play-btn" onclick="openGame('unblockedgames-main/play/krunker/index.html')">Play</div>
+    </div>
+    
+    <div class="steam-card"> 
+      <h4>Actual good minecraft might work?</h4>
+      <div class="play-btn" onclick="openGame('unblockedgames-main/play/minecraft/index.html')">Play</div>
+    </div>
+  
+     <div class="steam-card"> 
+      <h4>1v1 lol offline</h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/1v1.lol.html')">Play</div>
+    </div>
+
+    <div class="steam-card"> 
+      <h4>3d flight sim</h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/3Dflightsimulator.html')">Play</div>
+    </div>
+
+    <div class="steam-card"> 
+      <h4>BasketBall Stars</h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/basketballstars.html')">Play</div>
+    </div>
+
+    <div class="steam-card"> 
+      <h4>Backrooms</h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/backrooms.html')">Play</div>
+    </div>
+
+      <div class="steam-card"> 
+      <h4>Bitlife</h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/bitlife.html')">Play</div>
+    </div>
+
+      <div class="steam-card"> 
+      <h4>Fireboy and Watergirl </h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fireboyandwatergirl.html')">Play</div>
+    </div>
+
+     <div class="steam-card"> 
+      <h4>Fireboy and Watergirl 2</h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fireboyandwatergirl2.html')">Play</div>
+    </div>
+
+     <div class="steam-card"> 
+      <h4>Fireboy and Watergirl 3</h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fireboyandwatergirl3.html')">Play</div>
+    </div>
+    
+ <div class="steam-card"> 
+      <h4>Fireboy and Watergirl 4</h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fireboyandwatergirl4.html')">Play</div>
+    </div>
+
+     <div class="steam-card"> 
+      <h4>Fnaf 1 </h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fnaf.html')">Play</div>
+    </div>
+
+     <div class="steam-card"> 
+      <h4>Fnaf 2 </h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fnaf2.html')">Play</div>
+    </div>
+
+     <div class="steam-card"> 
+      <h4>Fnaf 3 </h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fnaf3.html')">Play</div>
+    </div>
+
+     <div class="steam-card"> 
+      <h4>Fnaf 4 </h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fnaf4.html')">Play</div>
+    </div>
+
+     <div class="steam-card"> 
+      <h4>Fruit Ninja </h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fruitninja.html')">Play</div>
+    </div>
+
+    <div class="steam-card"> 
+      <h4>Subway Surfers </h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/subwaysurfershavana.html')">Play</div>
+    </div>
+
+    <div class="steam-card"> 
+      <h4>Tiny Fishing </h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/tinyfishing.html')">Play</div>
+    </div>
+
+    <div class="steam-card"> 
+      <h4>Roof top snipers </h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/rooftopsnipers.htm')">Play</div>
+    </div>
+    
+    <div class="steam-card"> 
+      <h4>Roof top snipers 2 </h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/rooftopsnipers2.html')">Play</div>
+    </div>
+
+    <div class="steam-card"> 
+      <h4>Plants Vs Zombies </h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/plantsvszombies.html')">Play</div>
+    </div>
+
+     <div class="steam-card"> 
+      <h4>Among us fake </h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/amongus.html')">Play</div>
+    </div>
+
+     <div class="steam-card"> 
+      <h4>Angry Birds </h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/angrybirds.html')">Play</div>
+    </div>
+
+     <div class="steam-card"> 
+      <h4>Paper io 2 </h4>
+      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/paperio2.htm')">Play</div>
+    </div>
+
+    </div>
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ONLY TEXT CREDIT -->
+<div class="credit">made by mareczek</div>
+
+<script>
+
+let gameOpen = false;
+
+/* ================= POPUP ================= */
+function openPopup() {
+  document.getElementById("popup").style.display = "flex";
+}
+
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+}
+
+/* ================= GAME OPEN ================= */
+function openGame(url) {
+  const frame = document.getElementById("gameFrame");
+  const viewer = document.getElementById("gameViewer");
+
+  frame.src = url;
+  viewer.style.display = "block";
+
+  gameOpen = true;
+
+  // force focus so keyboard works
+  setTimeout(() => window.focus(), 50);
+}
+
+/* ================= GAME CLOSE ================= */
+function closeGame() {
+  const frame = document.getElementById("gameFrame");
+  const viewer = document.getElementById("gameViewer");
+
+  frame.src = "";
+  viewer.style.display = "none";
+
+  gameOpen = false;
+
+  setTimeout(() => window.focus(), 50);
+}
+
+/* ================= SHIFT + X (WORKS EVEN IN IFRAME) ================= */
+document.addEventListener("keydown", function (e) {
+
+  if (e.shiftKey && e.key.toLowerCase() === "x") {
+    e.preventDefault();
+    e.stopPropagation();
+
+    // change this to your desired “escape” link
+    window.top.location.href = "https://www.google.com";
+  }
+
+}, true); // capture phase = IMPORTANT for iframe focus issues
+
+/* ================= KEEP FOCUS (LIGHTWEIGHT FIX) ================= */
+document.addEventListener("click", () => {
+  window.focus();
+});
+
+/* ================= SECRET PAGE SWITCH ================= */
+document.getElementById("search").addEventListener("input", function () {
+  let val = this.value.toLowerCase();
+
+  if (val === "sigeon pex") {
+    document.getElementById("carPage").style.display = "none";
+    document.getElementById("gamesPage").style.display = "block";
+  }
+});
+
+/* ================= SHORTCUTS ================= */
+document.addEventListener("keydown", (e) => {
+
+  if (e.shiftKey && e.key.toLowerCase() === "h") {
+    window.open("Bookmarklets.html");
+  }
+
+  if (e.shiftKey && e.key.toLowerCase() === "g") {
+    document.getElementById("carPage").style.display = "none";
+    document.getElementById("gamesPage").style.display = "block";
+  }
+
+}, true);
+
+/* ================= GAME SEARCH ================= */
+document.getElementById("gameSearch").addEventListener("input", function () {
+  const search = this.value.toLowerCase();
+  const games = document.querySelectorAll(".steam-card");
+
+  games.forEach(game => {
+    const title = game.querySelector("h4").textContent.toLowerCase();
+
+    if (title.includes(search)) {
+      game.style.display = "";
+    } else {
+      game.style.display = "none";
+    }
+  });
+});
+
+</script>
+
+</body>
+</html>
