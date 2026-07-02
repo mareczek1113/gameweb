@@ -219,6 +219,14 @@ body {
   font-weight: bold;
 }
 
+/* MOVIES PAGE */
+#moviesPage { display:none; height:100vh; background:#0e1016; color:white; }
+.movie-top-actions { margin-left:auto; display:flex; gap:10px; }
+.nav-btn { background:#66c0f4; color:#07131c; border:0; border-radius:6px; padding:8px 12px; font-weight:bold; cursor:pointer; }
+.movie-viewer-actions { position:absolute; top:10px; right:15px; display:flex; gap:10px; z-index:10000; }
+.close-btn { background:#d94141; color:white; border:0; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:bold; }
+.fullscreen-btn { background:#66c0f4; color:#07131c; border:0; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:bold; }
+
 /* ONLY TEXT SHOWN */
 .credit {
   position: fixed;
@@ -298,15 +306,14 @@ body {
 <!-- ================= STEAM GAME PAGE ================= -->
 <div id="gamesPage">
 
-  <div class="steam-top">Library</div>
+  <div class="steam-top">Library
+  <div class="movie-top-actions"><button class="nav-btn" onclick="showMovies()">🎬 Movies</button></div>
+</div>
 
   <div class="steam-container">
 
     <div class="steam-sidebar">
       <h3>GAMES</h3>
-      <div class="steam-item">All Games</div>
-      <div class="steam-item">Recent</div>
-      <div class="steam-item">Favorites</div>
 
       <hr style="border-color:#222; margin:15px 0;">
 
@@ -444,17 +451,7 @@ body {
 
     <div class="steam-card">
       <h4>Csgo case clicker</h4>
-      <div class="play-btn" onclick="openGame('unblockedgames-main/play/csgo-clicker/index.html')">Play</div>
-    </div>
-
-    <div class="steam-card"> 
-      <h4>Krunker.io</h4>
-      <div class="play-btn" onclick="openGame('unblockedgames-main/play/krunker/index.html')">Play</div>
-    </div>
-    
-    <div class="steam-card"> 
-      <h4>Actual good minecraft might work?</h4>
-      <div class="play-btn" onclick="openGame('unblockedgames-main/play/minecraft/index.html')">Play</div>
+      <div class="play-btn" onclick="openGame('unblockedgames-main/play/boxclicker/index.html')">Play</div>
     </div>
   
      <div class="steam-card"> 
@@ -532,10 +529,7 @@ body {
       <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/subwaysurfershavana.html')">Play</div>
     </div>
 
-    <div class="steam-card"> 
-      <h4>Tiny Fishing </h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/tinyfishing.html')">Play</div>
-    </div>
+
 
     <div class="steam-card"> 
       <h4>Roof top snipers </h4>
@@ -567,10 +561,116 @@ body {
       <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/paperio2.htm')">Play</div>
     </div>
 
+    <div class="steam-card"> 
+      <h4>Minecraft pls work </h4>
+      <div class="play-btn" onclick="openGame('unblockedgames-main/play/blockgame/index.html')">Play</div>
+    </div>
+
     </div>
   </div>
 </div>
 
+    </div>
+  </div>
+</div>
+
+<!-- ================= MOVIES PAGE (SAME HTML FILE) ================= -->
+<!-- ================= MOVIES PAGE ================= -->
+<div id="moviesPage">
+  <div class="steam-top">
+    Movie Hub
+    <div class="movie-top-actions">
+      <button class="nav-btn" onclick="showGames()">← Back to Games</button>
+    </div>
+  </div>
+
+  <div class="steam-container">
+    <div class="steam-sidebar">
+      <h3>MOVIES</h3>
+    </div>
+
+    <div class="steam-library">
+      <div class="steam-header">
+        <h2>Movie Hub</h2>
+        <p>Choose a movie to play.</p>
+      </div>
+
+      <div class="steam-grid">
+        <div class="steam-card">
+          <h4>SpiderMan 3</h4>
+          <div class="play-btn"
+            onclick="openMovie('https://drive.google.com/file/d/1BJTsBEOeTbpv3fqU0ejzb44aQGrdLhyN/preview')">
+            Play Movie
+          </div>
+        </div>
+
+         <div class="steam-card">
+          <h4>Super Mario Bros Movie</h4>
+          <div class="play-btn"
+            onclick="openMovie('https://drive.google.com/file/d/1EMTjbbbBCnF6SoQNLPQ_IoLwqdO9NcJV/preview')">
+            Play Movie
+          </div>
+        </div>
+
+        <div class="steam-card">
+          <h4>Sonic 3</h4>
+          <div class="play-btn"
+            onclick="openMovie('https://drive.google.com/file/d/1fhs1fdOWIKyHxC63m_n2VOSWI2-jYg01/preview')">
+            Play Movie
+          </div>
+        </div>
+
+        <div class="steam-card">
+          <h4>Spider Man No way home</h4>
+          <div class="play-btn"
+            onclick="openMovie('https://drive.google.com/file/d/12y_7LQ10kgktFaB1Jk5-N96dBt2C6Ejb/preview')">
+            Play Movie
+          </div>
+        </div>
+        
+
+        
+
+      </div>
+    </div>
+  </div>
+
+  <!-- MOVIE VIEWER -->
+  <div id="movieViewer" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;">
+
+    <!-- iframe instead of video -->
+    <iframe id="movieFrame"
+      style="width:100%;height:100%;border:none;">
+    </iframe>
+
+    <div class="movie-viewer-actions">
+      <button class="close-btn" onclick="closeMovie()">✕ Close</button>
+    </div>
+
+  </div>
+</div>
+  <div id="movieViewer" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;">
+    <video id="movieVideo" style="width:100%;height:100%;object-fit:contain;" playsinline></video>
+    <div class="movie-viewer-actions">
+      <button class="fullscreen-btn" onclick="fullscreenMovie()">⛶ Full Screen</button>
+      <button class="close-btn" onclick="closeMovie()">✕ Close</button>
+    </div>
+    <div id="videoControls" style="position:absolute;bottom:0;left:0;right:0;padding:16px;background:linear-gradient(transparent,rgba(0,0,0,.9));display:flex;align-items:center;gap:10px;">
+      <button class="fullscreen-btn" onclick="togglePlay()" id="playPause">▶ Play</button>
+      <button class="fullscreen-btn" onclick="skipMovie(-10)">↺ 10</button>
+      <button class="fullscreen-btn" onclick="skipMovie(10)">10 ↻</button>
+      <span id="timeLabel" style="min-width:100px;color:white;">0:00 / 0:00</span>
+      <input id="progressBar" type="range" min="0" value="0" step="0.1" style="flex:1;" oninput="seekMovie(this.value)">
+      <button class="fullscreen-btn" onclick="toggleMute()" id="muteBtn">🔊</button>
+      <input id="volumeBar" type="range" min="0" max="1" step="0.05" value="1" style="width:90px;" oninput="setVolume(this.value)">
+      <button class="fullscreen-btn" onclick="toggleSettings()">⚙ Settings</button>
+      <div id="settingsMenu" style="display:none;position:absolute;right:16px;bottom:70px;background:#1a1d25;border:1px solid #555;border-radius:8px;padding:10px;">
+        <label style="color:white;">Speed:
+          <select onchange="setSpeed(this.value)">
+            <option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option>
+          </select>
+        </label>
+      </div>
     </div>
   </div>
 </div>
@@ -591,6 +691,115 @@ function closePopup() {
   document.getElementById("popup").style.display = "none";
 }
 
+/* ================= MOVIE HUB ================= */
+function showMovies() {
+  document.getElementById("gamesPage").style.display = "none";
+  document.getElementById("moviesPage").style.display = "block";
+}
+
+function showGames() {
+  document.getElementById("moviesPage").style.display = "none";
+  document.getElementById("gamesPage").style.display = "block";
+}
+
+
+
+function openMovie(url) {
+  const frame = document.getElementById("movieFrame");
+  const viewer = document.getElementById("movieViewer");
+
+  viewer.style.display = "block";
+  frame.src = url;F
+}
+
+function closeMovie() {
+  const frame = document.getElementById("movieFrame");
+  const viewer = document.getElementById("movieViewer");
+
+  // 🔥 force stop playback
+  frame.src = "about:blank";
+  frame.src = "";
+
+  viewer.style.display = "none";
+}
+
+function togglePlay() {
+  const v = document.getElementById("movieVideo");
+  v.paused ? v.play() : v.pause();
+}
+
+function skipMovie(seconds) {
+  const v = document.getElementById("movieVideo");
+  if (!isNaN(v.duration)) {
+    v.currentTime = Math.max(0, Math.min(v.duration, v.currentTime + seconds));
+  }
+}
+
+function seekMovie(value) {
+  const v = document.getElementById("movieVideo");
+  if (!isNaN(v.duration)) {
+    v.currentTime = Number(value);
+  }
+}
+
+function toggleMute() {
+  const v = document.getElementById("movieVideo");
+  v.muted = !v.muted;
+  document.getElementById("muteBtn").textContent = v.muted ? "🔇" : "🔊";
+}
+
+function setVolume(value) {
+  const v = document.getElementById("movieVideo");
+  v.volume = value;
+  v.muted = false;
+}
+
+function setSpeed(value) {
+  document.getElementById("movieVideo").playbackRate = value;
+}
+
+function toggleSettings() {
+  const m = document.getElementById("settingsMenu");
+  m.style.display = m.style.display === "block" ? "none" : "block";
+}
+
+function fullscreenMovie() {
+  const viewer = document.getElementById("movieViewer");
+  if (viewer.requestFullscreen) viewer.requestFullscreen();
+}
+
+function formatTime(seconds) {
+  if (!isFinite(seconds)) return "0:00";
+  return Math.floor(seconds / 60) + ":" + String(Math.floor(seconds % 60)).padStart(2, "0");
+}
+
+/* ================= VIDEO EVENTS ================= */
+const movieVideo = document.getElementById("movieVideo");
+
+movieVideo.addEventListener("loadedmetadata", () => {
+  document.getElementById("progressBar").max = movieVideo.duration;
+});
+
+movieVideo.addEventListener("timeupdate", () => {
+  const progress = document.getElementById("progressBar");
+  const label = document.getElementById("timeLabel");
+
+  progress.value = movieVideo.currentTime;
+
+  label.textContent =
+    formatTime(movieVideo.currentTime) +
+    " / " +
+    formatTime(movieVideo.duration);
+});
+
+movieVideo.addEventListener("play", () => {
+  document.getElementById("playPause").textContent = "❚❚ Pause";
+});
+
+movieVideo.addEventListener("pause", () => {
+  document.getElementById("playPause").textContent = "▶ Play";
+});
+
 /* ================= GAME OPEN ================= */
 function openGame(url) {
   const frame = document.getElementById("gameFrame");
@@ -601,7 +810,6 @@ function openGame(url) {
 
   gameOpen = true;
 
-  // force focus so keyboard works
   setTimeout(() => window.focus(), 50);
 }
 
@@ -618,20 +826,15 @@ function closeGame() {
   setTimeout(() => window.focus(), 50);
 }
 
-/* ================= SHIFT + X (WORKS EVEN IN IFRAME) ================= */
+/* ================= KEYBOARD ESCAPE ================= */
 document.addEventListener("keydown", function (e) {
-
   if (e.shiftKey && e.key.toLowerCase() === "x") {
     e.preventDefault();
-    e.stopPropagation();
-
-    // change this to your desired “escape” link
     window.top.location.href = "https://www.google.com";
   }
+}, true);
 
-}, true); // capture phase = IMPORTANT for iframe focus issues
-
-/* ================= KEEP FOCUS (LIGHTWEIGHT FIX) ================= */
+/* ================= KEEP FOCUS ================= */
 document.addEventListener("click", () => {
   window.focus();
 });
@@ -667,12 +870,7 @@ document.getElementById("gameSearch").addEventListener("input", function () {
 
   games.forEach(game => {
     const title = game.querySelector("h4").textContent.toLowerCase();
-
-    if (title.includes(search)) {
-      game.style.display = "";
-    } else {
-      game.style.display = "none";
-    }
+    game.style.display = title.includes(search) ? "" : "none";
   });
 });
 
