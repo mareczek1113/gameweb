@@ -14,6 +14,8 @@ body {
   color: #111;
 }
 
+
+
 /* ================= GCSE PAGE ================= */
 #carPage {
   padding: 30px;
@@ -219,6 +221,152 @@ body {
   font-weight: bold;
 }
 
+
+
+/* ================= STEAM STORE STYLE GAME LIST ================= */
+.store-top-nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-left: 10px;
+  font-size: 13px;
+  color: #c7d5e0;
+}
+
+.store-top-nav span {
+  cursor: pointer;
+  opacity: 0.85;
+}
+
+.store-top-nav span:hover {
+  opacity: 1;
+  color: #66c0f4;
+}
+
+.store-body {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 20px;
+}
+
+.store-header {
+  margin-bottom: 15px;
+}
+
+.store-header h2 {
+  font-weight: 300;
+  font-size: 28px;
+  margin: 0 0 4px 0;
+}
+
+.store-header p {
+  color: #8f98a0;
+  font-size: 13px;
+  margin: 0;
+}
+
+.store-searchbar {
+  display: flex;
+  background: #16202d;
+  padding: 8px;
+  gap: 10px;
+  align-items: center;
+  border-radius: 4px;
+  margin: 15px 0;
+}
+
+.store-searchbar input {
+  flex: 1;
+  background: #24384c;
+  border: 1px solid #4b6b86;
+  color: white;
+  padding: 8px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.store-list {
+  background: #16202d;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.store-row {
+  height: 68px;
+  background: #22384b;
+  border-bottom: 1px solid #0f1b26;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.store-row:nth-child(even) {
+  background: #1e3244;
+}
+
+.store-row:hover {
+  background: #2d4d66;
+}
+
+.store-row .store-title {
+  flex: 1;
+  font-size: 15px;
+  color: #e2e8ee;
+}
+
+.store-row .store-play {
+  background: #66c0f4;
+  color: #07131c;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.store-row .store-play:hover {
+  background: #8adaff;
+}
+
+.store-right .filter {
+  background: #16202d;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.store-right .filter h3 {
+  background: #22384b;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: normal;
+  color: #66c0f4;
+  margin: 0;
+}
+
+.store-right .filterContent {
+  padding: 12px;
+}
+
+.store-right .option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+  color: #9fb4c8;
+  font-size: 13px;
+}
+
+.store-right .option input {
+  width: 15px;
+  height: 15px;
+}
+
+
+
 /* MOVIES PAGE */
 #moviesPage { display:none; height:100vh; background:#0e1016; color:white; }
 .movie-top-actions { margin-left:auto; display:flex; gap:10px; }
@@ -313,36 +461,27 @@ body {
   <div class="steam-container">
 
     <div class="steam-sidebar">
-      <h3>GAMES</h3>
+      <h3>Proxy Search</h3>
 
       <hr style="border-color:#222; margin:15px 0;">
+
+      <div class="store-row" data-title="Fern - might work" onclick="openGame('https://centexvolleyball.org/')">
+        <div class="store-title">Fern</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('https://centexvolleyball.org/')">Play</button>
+      </div>
 
     </div>
 
     <div class="steam-library">
 
-  <div class="steam-header">
-    <h2>Secret Page</h2>
-    <p>New update - changed to revision website, changed layout added more games.</p>
-  </div>
 
-  <div style="margin:20px 0;">
-  <input
-    type="text"
-    id="gameSearch"
-    placeholder="Search games..."
-    style="
-      width:100%;
-      padding:12px;
-      background:#1a1d25;
-      border:1px solid #2a2f3a;
-      color:white;
-      border-radius:8px;
-      font-size:16px;
-      box-sizing:border-box;
-    "
-  >
-</div>
+  <div class="store-searchbar">
+    <input
+      type="text"
+      id="gameSearch"
+      placeholder="Search games..."
+    >
+  </div>
 
   <!-- FULLSCREEN GAME VIEWER -->
   <div id="gameViewer" style="
@@ -376,205 +515,196 @@ body {
     </iframe>
   </div>
 
-  <!-- YOUR ORIGINAL GAME GRID (UNCHANGED GAMES) -->
-  <div class="steam-grid">
+  <div class="store-body">
 
-    <div class="steam-card">
-      <h4>2048</h4>
-      <div class="play-btn" onclick="openGame('2048.html')">Play</div>
-    </div>
+    <div class="store-list" id="storeList">
 
-    <div class="steam-card">
-      <h4>Tetris</h4>
-      <div class="play-btn" onclick="openGame('tetris.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="2048" onclick="openGame('2048.html')">
+        <div class="store-title">2048</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('2048.html')">Play</button>
+      </div>
 
-    <div class="steam-card">
-      <h4>Mario</h4>
-      <div class="play-btn" onclick="openGame('mario.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Tetris" onclick="openGame('tetris.html')">
+        <div class="store-title">Tetris</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('tetris.html')">Play</button>
+      </div>
 
-    <div class="steam-card">
-      <h4>Snake IO</h4>
-      <div class="play-btn" onclick="openGame('snake.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Mario" onclick="openGame('mario.html')">
+        <div class="store-title">Mario</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('mario.html')">Play</button>
+      </div>
 
-    <div class="steam-card">
-      <h4>Flappy Bird</h4>
-      <div class="play-btn" onclick="openGame('flappybird.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Snake IO" onclick="openGame('snake.html')">
+        <div class="store-title">Snake IO</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('snake.html')">Play</button>
+      </div>
 
-    <div class="steam-card">
-      <h4>Tap Tap Tap</h4>
-      <div class="play-btn" onclick="openGame('tap.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Flappy Bird" onclick="openGame('flappybird.html')">
+        <div class="store-title">Flappy Bird</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('flappybird.html')">Play</button>
+      </div>
 
-    <div class="steam-card">
-      <h4>Crossy Road</h4>
-      <div class="play-btn" onclick="openGame('crossyroad.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Tap Tap Tap" onclick="openGame('tap.html')">
+        <div class="store-title">Tap Tap Tap</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('tap.html')">Play</button>
+      </div>
 
-    <div class="steam-card">
-      <h4>Granny</h4>
-      <div class="play-btn" onclick="openGame('granny.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Crossy Road" onclick="openGame('crossyroad.html')">
+        <div class="store-title">Crossy Road</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('crossyroad.html')">Play</button>
+      </div>
 
-    <div class="steam-card">
-      <h4>Granny 2</h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/granny2.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Granny" onclick="openGame('granny.html')">
+        <div class="store-title">Granny</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('granny.html')">Play</button>
+      </div>
 
-    <div class="steam-card">
-      <h4>Bob The Robber 2</h4>
-      <div class="play-btn" onclick="openGame('games/bob-the-robber-2/index.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Granny 2" onclick="openGame('Offline-HTML-Games-Pack-master/offline/granny2.html')">
+        <div class="store-title">Granny 2</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/granny2.html')">Play</button>
+      </div>
 
-    <div class="steam-card">
-      <h4>Drive Mad</h4>
-      <div class="play-btn" onclick="openGame('games/drive-mad/index.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Bob The Robber 2" onclick="openGame('games/bob-the-robber-2/index.html')">
+        <div class="store-title">Bob The Robber 2</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('games/bob-the-robber-2/index.html')">Play</button>
+      </div>
 
-    <div class="steam-card">
-      <h4>Slope</h4>
-      <div class="play-btn" onclick="openGame('games/slope/index.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Drive Mad" onclick="openGame('games/drive-mad/index.html')">
+        <div class="store-title">Drive Mad</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('games/drive-mad/index.html')">Play</button>
+      </div>
 
-    <div class="steam-card">
-      <h4>Moto X3M</h4>
-      <div class="play-btn" onclick="openGame('games/moto-x3m/index.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Slope" onclick="openGame('games/slope/index.html')">
+        <div class="store-title">Slope</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('games/slope/index.html')">Play</button>
+      </div>
 
-    <div class="steam-card">
-      <h4>Geometry Dash</h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/geometrydashlite.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Moto X3M" onclick="openGame('games/moto-x3m/index.html')">
+        <div class="store-title">Moto X3M</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('games/moto-x3m/index.html')">Play</button>
+      </div>
 
-    <div class="steam-card">
-      <h4>Csgo case clicker</h4>
-      <div class="play-btn" onclick="openGame('unblockedgames-main/play/boxclicker/index.html')">Play</div>
-    </div>
-  
-     <div class="steam-card"> 
-      <h4>1v1 lol offline</h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/1v1.lol.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Geometry Dash" onclick="openGame('Offline-HTML-Games-Pack-master/offline/geometrydashlite.html')">
+        <div class="store-title">Geometry Dash</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/geometrydashlite.html')">Play</button>
+      </div>
 
-    <div class="steam-card"> 
-      <h4>3d flight sim</h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/3Dflightsimulator.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Csgo case clicker" onclick="openGame('unblockedgames-main/play/boxclicker/index.html')">
+        <div class="store-title">Csgo case clicker</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('unblockedgames-main/play/boxclicker/index.html')">Play</button>
+      </div>
 
-    <div class="steam-card"> 
-      <h4>BasketBall Stars</h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/basketballstars.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="1v1 lol offline" onclick="openGame('Offline-HTML-Games-Pack-master/offline/1v1.lol.html')">
+        <div class="store-title">1v1 lol offline</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/1v1.lol.html')">Play</button>
+      </div>
 
-    <div class="steam-card"> 
-      <h4>Backrooms</h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/backrooms.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="3d flight sim" onclick="openGame('Offline-HTML-Games-Pack-master/offline/3Dflightsimulator.html')">
+        <div class="store-title">3d flight sim</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/3Dflightsimulator.html')">Play</button>
+      </div>
 
-      <div class="steam-card"> 
-      <h4>Bitlife</h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/bitlife.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="BasketBall Stars" onclick="openGame('Offline-HTML-Games-Pack-master/offline/basketballstars.html')">
+        <div class="store-title">BasketBall Stars</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/basketballstars.html')">Play</button>
+      </div>
 
-      <div class="steam-card"> 
-      <h4>Fireboy and Watergirl </h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fireboyandwatergirl.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Backrooms" onclick="openGame('Offline-HTML-Games-Pack-master/offline/backrooms.html')">
+        <div class="store-title">Backrooms</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/backrooms.html')">Play</button>
+      </div>
 
-     <div class="steam-card"> 
-      <h4>Fireboy and Watergirl 2</h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fireboyandwatergirl2.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Bitlife" onclick="openGame('Offline-HTML-Games-Pack-master/offline/bitlife.html')">
+        <div class="store-title">Bitlife</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/bitlife.html')">Play</button>
+      </div>
 
-     <div class="steam-card"> 
-      <h4>Fireboy and Watergirl 3</h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fireboyandwatergirl3.html')">Play</div>
-    </div>
-    
- <div class="steam-card"> 
-      <h4>Fireboy and Watergirl 4</h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fireboyandwatergirl4.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Fireboy and Watergirl" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fireboyandwatergirl.html')">
+        <div class="store-title">Fireboy and Watergirl</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/fireboyandwatergirl.html')">Play</button>
+      </div>
 
-     <div class="steam-card"> 
-      <h4>Fnaf 1 </h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fnaf.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Fireboy and Watergirl 2" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fireboyandwatergirl2.html')">
+        <div class="store-title">Fireboy and Watergirl 2</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/fireboyandwatergirl2.html')">Play</button>
+      </div>
 
-     <div class="steam-card"> 
-      <h4>Fnaf 2 </h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fnaf2.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Fireboy and Watergirl 3" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fireboyandwatergirl3.html')">
+        <div class="store-title">Fireboy and Watergirl 3</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/fireboyandwatergirl3.html')">Play</button>
+      </div>
 
-     <div class="steam-card"> 
-      <h4>Fnaf 3 </h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fnaf3.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Fireboy and Watergirl 4" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fireboyandwatergirl4.html')">
+        <div class="store-title">Fireboy and Watergirl 4</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/fireboyandwatergirl4.html')">Play</button>
+      </div>
 
-     <div class="steam-card"> 
-      <h4>Fnaf 4 </h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fnaf4.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Fnaf 1" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fnaf.html')">
+        <div class="store-title">Fnaf 1</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/fnaf.html')">Play</button>
+      </div>
 
-     <div class="steam-card"> 
-      <h4>Fruit Ninja </h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fruitninja.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Fnaf 2" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fnaf2.html')">
+        <div class="store-title">Fnaf 2</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/fnaf2.html')">Play</button>
+      </div>
 
-    <div class="steam-card"> 
-      <h4>Subway Surfers </h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/subwaysurfershavana.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Fnaf 3" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fnaf3.html')">
+        <div class="store-title">Fnaf 3</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/fnaf3.html')">Play</button>
+      </div>
 
+      <div class="store-row" data-title="Fnaf 4" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fnaf4.html')">
+        <div class="store-title">Fnaf 4</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/fnaf4.html')">Play</button>
+      </div>
 
+      <div class="store-row" data-title="Fruit Ninja" onclick="openGame('Offline-HTML-Games-Pack-master/offline/fruitninja.html')">
+        <div class="store-title">Fruit Ninja</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/fruitninja.html')">Play</button>
+      </div>
 
-    <div class="steam-card"> 
-      <h4>Roof top snipers </h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/rooftopsnipers.htm')">Play</div>
-    </div>
-    
-    <div class="steam-card"> 
-      <h4>Roof top snipers 2 </h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/rooftopsnipers2.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Subway Surfers" onclick="openGame('Offline-HTML-Games-Pack-master/offline/subwaysurfershavana.html')">
+        <div class="store-title">Subway Surfers</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/subwaysurfershavana.html')">Play</button>
+      </div>
 
-    <div class="steam-card"> 
-      <h4>Plants Vs Zombies </h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/plantsvszombies.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Roof top snipers" onclick="openGame('Offline-HTML-Games-Pack-master/offline/rooftopsnipers.htm')">
+        <div class="store-title">Roof top snipers</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/rooftopsnipers.htm')">Play</button>
+      </div>
 
-     <div class="steam-card"> 
-      <h4>Among us fake </h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/amongus.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Roof top snipers 2" onclick="openGame('Offline-HTML-Games-Pack-master/offline/rooftopsnipers2.html')">
+        <div class="store-title">Roof top snipers 2</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/rooftopsnipers2.html')">Play</button>
+      </div>
 
-     <div class="steam-card"> 
-      <h4>Angry Birds </h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/angrybirds.html')">Play</div>
-    </div>
+      <div class="store-row" data-title="Plants Vs Zombies" onclick="openGame('Offline-HTML-Games-Pack-master/offline/plantsvszombies.html')">
+        <div class="store-title">Plants Vs Zombies</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/plantsvszombies.html')">Play</button>
+      </div>
 
-     <div class="steam-card"> 
-      <h4>Paper io 2 </h4>
-      <div class="play-btn" onclick="openGame('Offline-HTML-Games-Pack-master/offline/paperio2.htm')">Play</div>
-    </div>
+      <div class="store-row" data-title="Among us fake" onclick="openGame('Offline-HTML-Games-Pack-master/offline/amongus.html')">
+        <div class="store-title">Among us fake</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/amongus.html')">Play</button>
+      </div>
 
-     <div class="steam-card"> 
-      <h4>Fern - might work </h4>
-      <div class="play-btn" onclick="openGame('https://centexvolleyball.org/')">Play</div>
-    </div>
+      <div class="store-row" data-title="Angry Birds" onclick="openGame('Offline-HTML-Games-Pack-master/offline/angrybirds.html')">
+        <div class="store-title">Angry Birds</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/angrybirds.html')">Play</button>
+      </div>
 
-     <div class="steam-card"> 
-      <h4>Lucideon - might work </h4>
-      <div class="play-btn" onclick="openGame('https://lucideon.top/')">Play</div>
-    </div>
-   
+      <div class="store-row" data-title="Paper io 2" onclick="openGame('Offline-HTML-Games-Pack-master/offline/paperio2.htm')">
+        <div class="store-title">Paper io 2</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/paperio2.htm')">Play</button>
+      </div>
+
+      
+
 
     </div>
+
   </div>
-</div>
 
     </div>
   </div>
@@ -594,6 +724,8 @@ body {
     <div class="steam-sidebar">
       <h3>MOVIES</h3>
     </div>
+
+    
 
     <div class="steam-library">
       <div class="steam-header">
@@ -715,7 +847,7 @@ function openMovie(url) {
   const viewer = document.getElementById("movieViewer");
 
   viewer.style.display = "block";
-  frame.src = url;F
+  frame.src = url;
 }
 
 function closeMovie() {
@@ -872,11 +1004,11 @@ document.addEventListener("keydown", (e) => {
 /* ================= GAME SEARCH ================= */
 document.getElementById("gameSearch").addEventListener("input", function () {
   const search = this.value.toLowerCase();
-  const games = document.querySelectorAll(".steam-card");
+  const rows = document.querySelectorAll(".store-row");
 
-  games.forEach(game => {
-    const title = game.querySelector("h4").textContent.toLowerCase();
-    game.style.display = title.includes(search) ? "" : "none";
+  rows.forEach(row => {
+    const title = row.getAttribute("data-title").toLowerCase();
+    row.style.display = title.includes(search) ? "" : "none";
   });
 });
 
