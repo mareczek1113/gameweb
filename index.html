@@ -244,9 +244,7 @@ body {
 }
 
 .store-body {
-  display: grid;
-  grid-template-columns: 1fr 280px;
-  gap: 20px;
+  display: block;
 }
 
 .store-header {
@@ -365,6 +363,11 @@ body {
   height: 15px;
 }
 
+.store-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
 
 
 /* MOVIES PAGE */
@@ -518,40 +521,6 @@ body {
   <div class="store-body">
 
     <div class="store-list" id="storeList">
-
-      <div class="store-row" data-title="2048" onclick="openGame('2048.html')">
-        <div class="store-title">2048</div>
-        <button class="store-play" onclick="event.stopPropagation(); openGame('2048.html')">Play</button>
-      </div>
-
-      <div class="store-row" data-title="Tetris" onclick="openGame('tetris.html')">
-        <div class="store-title">Tetris</div>
-        <button class="store-play" onclick="event.stopPropagation(); openGame('tetris.html')">Play</button>
-      </div>
-
-      <div class="store-row" data-title="Mario" onclick="openGame('mario.html')">
-        <div class="store-title">Mario</div>
-        <button class="store-play" onclick="event.stopPropagation(); openGame('mario.html')">Play</button>
-      </div>
-
-      <div class="store-row" data-title="Snake IO" onclick="openGame('snake.html')">
-        <div class="store-title">Snake IO</div>
-        <button class="store-play" onclick="event.stopPropagation(); openGame('snake.html')">Play</button>
-      </div>
-
-      <div class="store-row" data-title="Flappy Bird" onclick="openGame('flappybird.html')">
-        <div class="store-title">Flappy Bird</div>
-        <button class="store-play" onclick="event.stopPropagation(); openGame('flappybird.html')">Play</button>
-      </div>
-
-      <div class="store-row" data-title="Tap Tap Tap" onclick="openGame('tap.html')">
-        <div class="store-title">Tap Tap Tap</div>
-        <button class="store-play" onclick="event.stopPropagation(); openGame('tap.html')">Play</button>
-      </div>
-
-      <div class="store-row" data-title="Crossy Road" onclick="openGame('crossyroad.html')">
-        <div class="store-title">Crossy Road</div>
-        <button class="store-play" onclick="event.stopPropagation(); openGame('crossyroad.html')">Play</button>
       </div>
 
       <div class="store-row" data-title="Granny" onclick="openGame('granny.html')">
@@ -664,9 +633,9 @@ body {
         <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/fruitninja.html')">Play</button>
       </div>
 
-      <div class="store-row" data-title="Subway Surfers" onclick="openGame('Offline-HTML-Games-Pack-master/offline/subwaysurfershavana.html')">
+      <div class="store-row" data-title="Subway Surfers" onclick="openGame('Offline-HTML-Games-Pack-master/offline/subwaysurfermonaco.html')">
         <div class="store-title">Subway Surfers</div>
-        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/subwaysurfershavana.html')">Play</button>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/subwaysurfermonaco.html')">Play</button>
       </div>
 
       <div class="store-row" data-title="Roof top snipers" onclick="openGame('Offline-HTML-Games-Pack-master/offline/rooftopsnipers.htm')">
@@ -698,6 +667,27 @@ body {
         <div class="store-title">Paper io 2</div>
         <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/paperio2.htm')">Play</button>
       </div>
+
+      <div class="store-row" data-title="Crossyroad" onclick="openGame('unblockedgames-main/play/crossyroad/index.html')">
+        <div class="store-title">Crossyroad</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('unblockedgames-main/play/crossyroad/index.html')">Play</button>
+      </div>
+
+      <div class="store-row" data-title="Mario" onclick="openGame('unblockedgames-main/play/mario/index.html')">
+        <div class="store-title">Mario</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('unblockedgames-main/play/mario/index.html')">Play</button>
+      </div>
+
+       <div class="store-row" data-title="Superhot" onclick="openGame('unblockedgames-main/play/superhot/index.html')">
+        <div class="store-title">Superhot</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('unblockedgames-main/play/superhot/index.html')">Play</button>
+      </div>
+
+      <div class="store-row" data-title="Dodge Miner" onclick="openGame('unblockedgames-main/play/dodgeminer/index.html')">
+        <div class="store-title">Dodge Miner</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('unblockedgames-main/play/dodgeminer/index.html')">Play</button>
+      </div>
+       
 
       
 
