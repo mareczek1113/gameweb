@@ -17,6 +17,24 @@ body {
 
 
 /* ================= GCSE PAGE ================= */
+
+#popup2 {
+    position: fixed;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #222;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    transition: top 0.3s ease;
+    font-family: Arial;
+}
+
+#popup2.show {
+    top: 20px;
+}
+
 #carPage {
   padding: 30px;
 }
@@ -468,9 +486,14 @@ body {
 
       <hr style="border-color:#222; margin:15px 0;">
 
-      <div class="store-row" data-title="Fern - might work" onclick="openGame('https://centexvolleyball.org/')">
+      <div class="store-row" data-title="Fern" onclick="openGame('https://centexvolleyball.org/')">
         <div class="store-title">Fern</div>
-        <button class="store-play" onclick="event.stopPropagation(); openGame('https://centexvolleyball.org/')">Play</button>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('https://centexvolleyball.org/')">Enter</button>
+      </div>
+
+        <div class="store-row" data-title="scramjet" onclick="openGame('https://scramjet.mercurywork.shop/')">
+        <div class="store-title">Scramjet - test</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('https://scramjet.mercurywork.shop/')">Enter</button>
       </div>
 
     </div>
@@ -689,7 +712,14 @@ body {
       </div>
        
 
-      
+      <div id="popup2">Public login info.
+        Proton mail login:
+        Email: publicunblocked@proton.me
+        Password: revisiongcse
+        Geforce Now login:
+        Email: publicunblocked@proton.me
+        Password: Revisiongcse
+      </div>
 
 
     </div>
@@ -991,6 +1021,16 @@ document.addEventListener("keydown", (e) => {
 
 }, true);
 
+const popup2 = document.getElementById("popup2");
+
+document.addEventListener("keydown", (e) => {
+    if (e.shiftKey && e.key.toLowerCase() === "i") {
+        e.preventDefault();
+
+        popup2.classList.toggle("show");
+    }
+});
+
 /* ================= GAME SEARCH ================= */
 document.getElementById("gameSearch").addEventListener("input", function () {
   const search = this.value.toLowerCase();
@@ -1001,6 +1041,8 @@ document.getElementById("gameSearch").addEventListener("input", function () {
     row.style.display = title.includes(search) ? "" : "none";
   });
 });
+
+
 
 </script>
 
