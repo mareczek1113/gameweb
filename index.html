@@ -833,6 +833,8 @@ body {
   </div>
 </div>
 
+
+
 <!-- ONLY TEXT CREDIT -->
 <div class="credit">made by mareczek</div>
 
@@ -881,82 +883,10 @@ function closeMovie() {
   viewer.style.display = "none";
 }
 
-function togglePlay() {
-  const v = document.getElementById("movieVideo");
-  v.paused ? v.play() : v.pause();
-}
 
-function skipMovie(seconds) {
-  const v = document.getElementById("movieVideo");
-  if (!isNaN(v.duration)) {
-    v.currentTime = Math.max(0, Math.min(v.duration, v.currentTime + seconds));
-  }
-}
 
-function seekMovie(value) {
-  const v = document.getElementById("movieVideo");
-  if (!isNaN(v.duration)) {
-    v.currentTime = Number(value);
-  }
-}
 
-function toggleMute() {
-  const v = document.getElementById("movieVideo");
-  v.muted = !v.muted;
-  document.getElementById("muteBtn").textContent = v.muted ? "🔇" : "🔊";
-}
 
-function setVolume(value) {
-  const v = document.getElementById("movieVideo");
-  v.volume = value;
-  v.muted = false;
-}
-
-function setSpeed(value) {
-  document.getElementById("movieVideo").playbackRate = value;
-}
-
-function toggleSettings() {
-  const m = document.getElementById("settingsMenu");
-  m.style.display = m.style.display === "block" ? "none" : "block";
-}
-
-function fullscreenMovie() {
-  const viewer = document.getElementById("movieViewer");
-  if (viewer.requestFullscreen) viewer.requestFullscreen();
-}
-
-function formatTime(seconds) {
-  if (!isFinite(seconds)) return "0:00";
-  return Math.floor(seconds / 60) + ":" + String(Math.floor(seconds % 60)).padStart(2, "0");
-}
-
-/* ================= VIDEO EVENTS ================= */
-const movieVideo = document.getElementById("movieVideo");
-
-movieVideo.addEventListener("loadedmetadata", () => {
-  document.getElementById("progressBar").max = movieVideo.duration;
-});
-
-movieVideo.addEventListener("timeupdate", () => {
-  const progress = document.getElementById("progressBar");
-  const label = document.getElementById("timeLabel");
-
-  progress.value = movieVideo.currentTime;
-
-  label.textContent =
-    formatTime(movieVideo.currentTime) +
-    " / " +
-    formatTime(movieVideo.duration);
-});
-
-movieVideo.addEventListener("play", () => {
-  document.getElementById("playPause").textContent = "❚❚ Pause";
-});
-
-movieVideo.addEventListener("pause", () => {
-  document.getElementById("playPause").textContent = "▶ Play";
-});
 
 /* ================= GAME OPEN ================= */
 function openGame(url) {
@@ -983,14 +913,6 @@ function closeGame() {
 
   setTimeout(() => window.focus(), 50);
 }
-
-/* ================= KEYBOARD ESCAPE ================= */
-document.addEventListener("keydown", function (e) {
-  if (e.shiftKey && e.key.toLowerCase() === "x") {
-    e.preventDefault();
-    window.top.location.href = "https://www.google.com";
-  }
-}, true);
 
 /* ================= KEEP FOCUS ================= */
 document.addEventListener("click", () => {
