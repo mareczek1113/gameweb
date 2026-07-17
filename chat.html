@@ -530,6 +530,8 @@ const PRESENCE_TIMEOUT_MS = 30000;   // considered offline if no heartbeat in th
 const HEARTBEAT_INTERVAL_MS = 15000;
 const TYPING_TIMEOUT_MS = 5000;
 const SEND_COOLDOWN_MS = 1500;
+const MESSAGE_TTL_MS = 10 * 60 * 60 * 1000; // auto-delete messages after 10 hours
+const PRUNE_CHECK_INTERVAL_MS = 5 * 60 * 1000; // re-check for expired messages every 5 min
 const SWEAR_WORDS = ["damn","hell","crap","shit","fuck","ass","bitch","bastard"]; // basic list
 const REACTION_EMOJIS = ["👍","❤️","😂","😮","😢","😡"];
 const EMOJI_PICKER_SET = "😀 😁 😂 🤣 😊 😍 😘 😜 🤔 😎 😴 🥳 😭 😡 🤯 🥺 👍 👎 👏 🙌 🙏 🔥 💯 ❤️ 💔 ✨ 🎉 🎊 😱 😇 🤗 🤝 👀 💀 🤡 😅 😆 🙂 🙃 😉".split(" ");
@@ -544,6 +546,7 @@ let typingTimeout = null;
 let heartbeatInterval = null;
 let onlineUsers = new Map();   // username -> {lastActive, uid}
 let currentMessages = [];      // cached latest render data
+let latestMessageDocs = [];    // cached latest snapshot docs (for periodic pruning)
 let swearFilterOn = localStorage.getItem("swearFilterOn") !== "off";
 
 /* ---------------- DOM refs ---------------- */
@@ -857,6 +860,10 @@ async function sendMessage(){
       username: myUsername,
       text: filterSwears(text),
       created: serverTimestamp(),
+      // Firestore TTL policy (configured in the Firebase console on the
+      // "messages" collection, field "expireAt") auto-deletes the doc
+      // once this passes — that's what actually enforces the 10hr limit.
+      expireAt: Timestamp.fromMillis(Date.now() + MESSAGE_TTL_MS),
       edited: false,
       pinned: false,
       type: "message",
@@ -1016,7 +1023,7 @@ function renderMessage(data, id){
   body.appendChild(renderReactions(id, data.reactions));
   row.appendChild(body);
 
-  // action buttons (edit/delete/pin) — only show delete/edit for own messages
+  // action buttons (edit/delete/pin) — delete/edit only shown for your own messages
   const actions = document.createElement("div");
   actions.className = "msg-actions";
 
@@ -1123,6 +1130,36 @@ setInterval(()=>{
   });
 }, 30000);
 
+/* ---------------- Auto-delete messages after MESSAGE_TTL_MS ----------------
+   The real enforcement is a Firestore TTL policy (set up in the Firebase
+   console: Firestore -> TTL tab -> policy on the "messages" collection,
+   field "expireAt"). Firestore's backend deletes expired docs on its own,
+   with no client needed — deletion typically lands within a few hours of
+   expiry, sometimes up to ~24h per Google's TTL docs.
+   isExpired()/pruneOldMessages() below just keep the UI honest in the
+   meantime so an expired-but-not-yet-swept message doesn't still show. */
+function isExpired(data){
+  const expireAt = data.expireAt ? data.expireAt.toMillis() : null;
+  if(expireAt !== null) return Date.now() >= expireAt;
+  // fallback for older docs written before expireAt existed
+  const created = data.created ? data.created.toMillis() : null;
+  return created !== null && (Date.now() - created) >= MESSAGE_TTL_MS;
+}
+
+// Best-effort client-side cleanup as a backup to the TTL policy (e.g. for
+// any docs written before expireAt was added, or if TTL isn't configured
+// in the console yet). Safe to run from multiple clients simultaneously.
+async function pruneOldMessages(docs){
+  if(!docs || docs.length === 0) return;
+  const expired = docs.filter(({data}) => isExpired(data));
+  if(expired.length === 0) return;
+  await Promise.all(expired.map(({id}) =>
+    deleteDoc(doc(messagesCol, id)).catch(()=>{ /* already deleted elsewhere, ignore */ })
+  ));
+}
+
+setInterval(()=> pruneOldMessages(latestMessageDocs), PRUNE_CHECK_INTERVAL_MS);
+
 /* ---------------- Messages subscription ---------------- */
 const q = query(messagesCol, orderBy("created", "desc"), limit(MAX_MESSAGES));
 
@@ -1130,6 +1167,7 @@ onSnapshot(q, (snapshot)=>{
   const docs = [];
   snapshot.forEach(d => docs.push({ id: d.id, data: d.data() }));
   docs.reverse(); // oldest first for display
+  latestMessageDocs = docs;
 
   const wasNearBottom = isNearBottom();
 
@@ -1146,6 +1184,8 @@ onSnapshot(q, (snapshot)=>{
   }else{
     jumpBtn.classList.add("show");
   }
+
+  pruneOldMessages(docs);
 });
 
 /* ---------------- Cleanup on unload (best effort) ---------------- */

@@ -396,13 +396,6 @@ body {
 .close-btn { background:#d94141; color:white; border:0; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:bold; }
 .fullscreen-btn { background:#66c0f4; color:#07131c; border:0; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:bold; }
 
-/* ONLY TEXT SHOWN */
-.credit {
-  position: fixed;
-  bottom: 10px;
-  right: 15px;
-  color: #999;
-}
 </style>
 </head>
 
@@ -483,9 +476,14 @@ body {
 
     <div class="steam-sidebar">
       <h3>Blooket Cheats</h3>
-      <a href="Bookmarklets.html">Cheats</a>
-      <br>
 
+      <hr style="border-color:#222; margin:15px 0;">
+
+      <div class="store-row" data-title="Blooket Cheats" onclick="openGame('Bookmarklets.html')">
+        <div class="store-title">Blooket Cheats</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Bookmarklets.html')">Enter</button>
+      </div>
+      <br>
       <h3>Proxy Search</h3>
 
       <hr style="border-color:#222; margin:15px 0;">
@@ -500,12 +498,28 @@ body {
         <button class="store-play" onclick="event.stopPropagation(); openGame('https://scramjet.mercurywork.shop/')">Enter</button>
       </div>
 
+      <br>
+
       <h3>Chat room</h3>
       <p>Only with people on this website</p>
+      <hr style="border-color:#222; margin:15px 0;">
 
       <div class="store-row" data-title="Chatroom" onclick="openGame('chat.html')">
         <div class="store-title">Chat Room</div>
         <button class="store-play" onclick="event.stopPropagation(); openGame('chat.html')">Enter</button>
+      </div>
+      <br>
+      <h3>Public Login Info</h3>
+      <p>Use on proxy search only.
+      <hr style="border-color:#222; margin:15px 0;">
+      <br>
+      <div>
+        Proton mail login:
+        Email: publicunblocked@proton.me
+        Password: revisiongcse
+        Geforce Now login:
+        Email: publicunblocked@proton.me
+        Password: Revisiongcse
       </div>
 
     </div>
@@ -713,7 +727,7 @@ body {
         <button class="store-play" onclick="event.stopPropagation(); openGame('unblockedgames-main/play/mario/index.html')">Play</button>
       </div>
 
-       <div class="store-row" data-title="Superhot" onclick="openGame('unblockedgames-main/play/superhot/index.html')">
+      <div class="store-row" data-title="Superhot" onclick="openGame('unblockedgames-main/play/superhot/index.html')">
         <div class="store-title">Superhot</div>
         <button class="store-play" onclick="event.stopPropagation(); openGame('unblockedgames-main/play/superhot/index.html')">Play</button>
       </div>
@@ -722,15 +736,25 @@ body {
         <div class="store-title">Dodge Miner</div>
         <button class="store-play" onclick="event.stopPropagation(); openGame('unblockedgames-main/play/dodgeminer/index.html')">Play</button>
       </div>
-       
 
-      <div id="popup2">Public login info.
-        Proton mail login:
-        Email: publicunblocked@proton.me
-        Password: revisiongcse
-        Geforce Now login:
-        Email: publicunblocked@proton.me
-        Password: Revisiongcse
+      <div class="store-row" data-title="American Football" onclick="openGame('Offline-HTML-Games-Pack-master/offline/footballbros.html')">
+        <div class="store-title">American Football</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/footballbros.html')">Play</button>
+      </div>
+
+      <div class="store-row" data-title="Football Legends" onclick="openGame('Offline-HTML-Games-Pack-master/offline/footballlegends.html')">
+        <div class="store-title">Football Legends</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/footballlegends.html')">Play</button>
+      </div>
+
+      <div class="store-row" data-title="Funny Mad Racing" onclick="openGame('Offline-HTML-Games-Pack-master/offline/funnymadracing.html')">
+        <div class="store-title">Funny Mad Racing</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/funnymadracing.html')">Play</button>
+      </div>
+
+      <div class="store-row" data-title="Funny Shooter 2" onclick="openGame('Offline-HTML-Games-Pack-master/offline/funnyshooter2.html')">
+        <div class="store-title">Funny Shooter 2</div>
+        <button class="store-play" onclick="event.stopPropagation(); openGame('Offline-HTML-Games-Pack-master/offline/funnyshooter2.html')">Play</button>
       </div>
 
 
@@ -742,8 +766,6 @@ body {
   </div>
 </div>
 
-<!-- ================= MOVIES PAGE (SAME HTML FILE) ================= -->
-<!-- ================= MOVIES PAGE ================= -->
 <div id="moviesPage">
   <div class="steam-top">
     Movie Hub
@@ -756,8 +778,6 @@ body {
     <div class="steam-sidebar">
       <h3>MOVIES</h3>
     </div>
-
-    
 
     <div class="steam-library">
       <div class="steam-header">
@@ -774,7 +794,7 @@ body {
           </div>
         </div>
 
-         <div class="steam-card">
+        <div class="steam-card">
           <h4>Super Mario Bros Movie</h4>
           <div class="play-btn"
             onclick="openMovie('https://drive.google.com/file/d/1EMTjbbbBCnF6SoQNLPQ_IoLwqdO9NcJV/preview')">
@@ -797,15 +817,11 @@ body {
             Play Movie
           </div>
         </div>
-        
-
-        
-
       </div>
     </div>
   </div>
 
-  <!-- MOVIE VIEWER -->
+
   <div id="movieViewer" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;">
 
     <!-- iframe instead of video -->
@@ -819,42 +835,13 @@ body {
 
   </div>
 </div>
-  <div id="movieViewer" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;">
-    <video id="movieVideo" style="width:100%;height:100%;object-fit:contain;" playsinline></video>
-    <div class="movie-viewer-actions">
-      <button class="fullscreen-btn" onclick="fullscreenMovie()">⛶ Full Screen</button>
-      <button class="close-btn" onclick="closeMovie()">✕ Close</button>
-    </div>
-    <div id="videoControls" style="position:absolute;bottom:0;left:0;right:0;padding:16px;background:linear-gradient(transparent,rgba(0,0,0,.9));display:flex;align-items:center;gap:10px;">
-      <button class="fullscreen-btn" onclick="togglePlay()" id="playPause">▶ Play</button>
-      <button class="fullscreen-btn" onclick="skipMovie(-10)">↺ 10</button>
-      <button class="fullscreen-btn" onclick="skipMovie(10)">10 ↻</button>
-      <span id="timeLabel" style="min-width:100px;color:white;">0:00 / 0:00</span>
-      <input id="progressBar" type="range" min="0" value="0" step="0.1" style="flex:1;" oninput="seekMovie(this.value)">
-      <button class="fullscreen-btn" onclick="toggleMute()" id="muteBtn">🔊</button>
-      <input id="volumeBar" type="range" min="0" max="1" step="0.05" value="1" style="width:90px;" oninput="setVolume(this.value)">
-      <button class="fullscreen-btn" onclick="toggleSettings()">⚙ Settings</button>
-      <div id="settingsMenu" style="display:none;position:absolute;right:16px;bottom:70px;background:#1a1d25;border:1px solid #555;border-radius:8px;padding:10px;">
-        <label style="color:white;">Speed:
-          <select onchange="setSpeed(this.value)">
-            <option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option>
-          </select>
-        </label>
-      </div>
-    </div>
   </div>
 </div>
-
-
-
-<!-- ONLY TEXT CREDIT -->
-<div class="credit">made by mareczek</div>
 
 <script>
 
 let gameOpen = false;
 
-/* ================= POPUP ================= */
 function openPopup() {
   document.getElementById("popup").style.display = "flex";
 }
@@ -863,7 +850,6 @@ function closePopup() {
   document.getElementById("popup").style.display = "none";
 }
 
-/* ================= MOVIE HUB ================= */
 function showMovies() {
   document.getElementById("gamesPage").style.display = "none";
   document.getElementById("moviesPage").style.display = "block";
@@ -888,17 +874,12 @@ function closeMovie() {
   const frame = document.getElementById("movieFrame");
   const viewer = document.getElementById("movieViewer");
 
-  // 🔥 force stop playback
+
   frame.src = "about:blank";
   frame.src = "";
 
   viewer.style.display = "none";
 }
-
-
-
-
-
 
 /* ================= GAME OPEN ================= */
 function openGame(url) {
@@ -931,7 +912,6 @@ document.addEventListener("click", () => {
   window.focus();
 });
 
-/* ================= SECRET PAGE SWITCH ================= */
 document.getElementById("search").addEventListener("input", function () {
   let val = this.value.toLowerCase();
 
@@ -941,31 +921,13 @@ document.getElementById("search").addEventListener("input", function () {
   }
 });
 
-/* ================= SHORTCUTS ================= */
 document.addEventListener("keydown", (e) => {
-
-  if (e.shiftKey && e.key.toLowerCase() === "h") {
-    window.open("Bookmarklets.html");
-  }
-
   if (e.shiftKey && e.key.toLowerCase() === "g") {
     document.getElementById("carPage").style.display = "none";
     document.getElementById("gamesPage").style.display = "block";
   }
 
 }, true);
-
-const popup2 = document.getElementById("popup2");
-
-document.addEventListener("keydown", (e) => {
-    if (e.shiftKey && e.key.toLowerCase() === "i") {
-        e.preventDefault();
-
-        popup2.classList.toggle("show");
-    }
-});
-
-/* ================= GAME SEARCH ================= */
 document.getElementById("gameSearch").addEventListener("input", function () {
   const search = this.value.toLowerCase();
   const rows = document.querySelectorAll(".store-row");
@@ -975,10 +937,6 @@ document.getElementById("gameSearch").addEventListener("input", function () {
     row.style.display = title.includes(search) ? "" : "none";
   });
 });
-
-
-
 </script>
-
 </body>
 </html>
